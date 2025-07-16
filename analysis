@@ -1,4 +1,4 @@
-```markdown
+
 # DeFi Wallet Credit Scoring: Technical Analysis
 
 This document details the technical implementation of the DeFi wallet credit scoring system, covering data preprocessing, feature engineering, and the heuristic model logic.
