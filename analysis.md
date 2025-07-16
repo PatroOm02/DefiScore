@@ -81,8 +81,8 @@ After generating the credit scores for all unique wallets, an analysis of the sc
 
 Here is the distribution of the calculated credit scores across the 0-1000 range, binned into 100-point intervals:
 
-![Credit Score Distribution](credit_score_distribution.png)
-*(Note: This image should be generated separately using the provided plotting code and saved as `credit_score_distribution.png` in the same directory as this markdown file.)*
+<img width="1330" height="735" alt="image" src="https://github.com/user-attachments/assets/47040205-e20a-4a67-9ee7-930e3a6132e6" />
+
 
 ### Behavior of Wallets in the Lower Range
 
