@@ -1,4 +1,3 @@
-
 # DeFi Wallet Credit Scoring: Technical Analysis
 
 This document details the technical implementation of the DeFi wallet credit scoring system, covering data preprocessing, feature engineering, and the heuristic model logic.
@@ -74,6 +73,38 @@ Given the absence of pre-labeled credit scores, a **heuristic-based scoring mode
 
 All the above steps are encapsulated within a single Python script (or a single Jupyter Notebook cell) that can be executed to generate the wallet scores. The script takes the input JSON file path and an output CSV file path as arguments (or defined variables within the notebook).
 
-## 5. Conclusion
+## 5. Wallet Score Analysis
+
+After generating the credit scores for all unique wallets, an analysis of the score distribution and the characteristics of wallets at the extreme ends of the scoring spectrum was performed.
+
+### Score Distribution
+
+Here is the distribution of the calculated credit scores across the 0-1000 range, binned into 100-point intervals:
+
+![Credit Score Distribution](credit_score_distribution.png)
+*(Note: This image should be generated separately using the provided plotting code and saved as `credit_score_distribution.png` in the same directory as this markdown file.)*
+
+### Behavior of Wallets in the Lower Range
+
+Wallets receiving very low credit scores (closer to 0) consistently exhibit characteristics associated with high risk and poor financial behavior within the DeFi ecosystem. Key observations from sample wallets scoring between 0 and 100 include:
+
+* **High Number of Liquidations:** The most significant commonality is the presence of multiple liquidation events. Sample wallets with scores of 0 frequently show 3 or more `num_liquidations`, indicating a failure to maintain collateral ratios and a high default risk.
+* **Low Repayment Ratio:** These wallets often have a `repayment_ratio` of 0 or close to 0, suggesting that any borrowed funds were either not repaid or only a negligible portion was returned.
+* **Low Total Borrowed USD (sometimes):** Interestingly, some of these wallets might not have high `total_borrowed_usd`, but even small borrowed amounts leading to multiple liquidations are heavily penalized, reflecting poor risk management.
+
+In summary, low-scoring wallets are primarily penalized due to their direct engagement in liquidation events, which are strong indicators of unreliability and financial distress in DeFi.
+
+### Behavior of Wallets in the Higher Range
+
+Wallets achieving high credit scores (closer to 1000) demonstrate stable and responsible participation in the DeFi ecosystem. From a sample wallet scoring above 700, key patterns include:
+
+* **Zero Liquidations:** A consistent and crucial characteristic of high-scoring wallets is the complete absence of `num_liquidations`. This indicates that these wallets have successfully managed their collateral and debt positions without being forcedly closed out.
+* **Perfect Repayment Ratio:** High-scoring wallets typically have a `repayment_ratio` of `1.0`, signifying that they have repaid all their borrowed amounts or have no borrowing activity, which inherently means no risk of default on loans.
+* **Consistent Deposits (Implied):** While `total_deposited_usd` might be scaled to a small number in individual top examples, the overall design rewards consistent and significant deposits. Wallets with high scores tend to contribute positively to the protocol's liquidity without engaging in risky behavior.
+* **Diverse Engagement (Implied):** While not explicitly shown in the small sample, the scoring model also rewards `num_unique_actions` and `num_unique_assets`, suggesting that well-rounded, responsible engagement across different features is beneficial.
+
+In essence, high-scoring wallets are characterized by a lack of adverse events (especially liquidations) and a pattern of fulfilling their financial obligations or simply maintaining healthy, non-risky positions.
+
+## 6. Conclusion
 
 This project successfully demonstrates a methodology for assigning credit scores to DeFi wallets based on their on-chain transaction history. The heuristic model provides a transparent and interpretable scoring mechanism, allowing for assessment of wallet behavior from reliable participants to potentially risky entities. The generated `wallet_scores.csv` can be used for further analysis, risk management, or integration into DeFi applications.
