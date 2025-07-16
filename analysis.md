@@ -1,4 +1,4 @@
-```markdown
+
 # DeFi Wallet Credit Scoring: Technical Analysis
 
 This document details the technical implementation of the DeFi wallet credit scoring system, covering data preprocessing, feature engineering, and the heuristic model logic.
@@ -77,5 +77,3 @@ All the above steps are encapsulated within a single Python script (or a single 
 ## 5. Conclusion
 
 This project successfully demonstrates a methodology for assigning credit scores to DeFi wallets based on their on-chain transaction history. The heuristic model provides a transparent and interpretable scoring mechanism, allowing for assessment of wallet behavior from reliable participants to potentially risky entities. The generated `wallet_scores.csv` can be used for further analysis, risk management, or integration into DeFi applications.
-
----
